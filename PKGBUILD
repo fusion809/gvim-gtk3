@@ -6,9 +6,9 @@
 
 _pkgname=vim
 pkgname=gvim-gtk3
-pkgver=7.4.2042
+pkgver=7.4.2043
 pkgrel=1
-pkgdesc="Vim, the text editor. CLI version and GTK3 GUI providing majority of features."
+pkgdesc="Vim, the text editor. CLI version and GTK2 GUI providing majority of features."
 arch=("i686" "x86_64")
 url="http://www.vim.org"
 license=("custom:vim")
@@ -19,21 +19,26 @@ makedepends=("git" "lua" "python" "python2" "ruby")
 provides=("gvim" "xxd" "vim-runtime")
 conflicts=("vim-minimal-git" "vim-git" "vim-runtime" "vim-runtime-git"
            "vim-minimal" "vim" "vim-python3" "gvim" "gvim-python3")
-source=("https://github.com/vim/vim/archive/v$pkgver.tar.gz"
+source=("git+https://github.com/vim/vim.git#tag=v$pkgver"
         "gvim.desktop")
-sha256sums=('d02e2d1d409273a5126bbe447a4e54b1c9685e0aa46db7d2478a6d1d0abd1585'
+sha256sums=('SKIP'
             '86e4e5d23ae91580460baee86e49d64e40659408daa9836d488af516e22dd1e9')
 install=gvim.install
 
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//g'
+}
+
 prepare() {
-  SRC="$srcdir/${_pkgname}-${pkgver}"
-  cd $SRC
-  # set global configuration files to /etc/[g]vimrc
-  sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' src/feature.h
+    SRC="$srcdir/${_pkgname}"
+    cd $SRC
+    # set global configuration files to /etc/[g]vimrc
+    sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' src/feature.h
 }
 
 build() {
-    SRC="$srcdir/${_pkgname}-${pkgver}"
+    SRC="$srcdir/${_pkgname}"
     cd $SRC
     ./configure \
       --enable-fail-if-missing \
@@ -53,12 +58,12 @@ build() {
 }
 
 package() {
-    SRC="$srcdir/${_pkgname}-${pkgver}"
+    SRC="$srcdir/${_pkgname}"
     # actual installation
     cd $SRC
     make DESTDIR=$pkgdir install
     cd -
-    pv="${_pkgname}-${pkgver}"
+    pv="${_pkgname}"
 
     # desktop entry file and corresponding icon
     install -D -m644 ../gvim.desktop      $pkgdir/usr/share/applications/gvim.desktop
