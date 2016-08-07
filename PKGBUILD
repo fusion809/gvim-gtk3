@@ -66,8 +66,8 @@ package() {
     pv="${_pkgname}"
 
     # desktop entry file and corresponding icon
-    install -D -m644 ../gvim.desktop      $pkgdir/usr/share/applications/gvim.desktop
-    install -D -m644 $pv/runtime/vim48x48.png $pkgdir/usr/share/icons/hicolor/48x48/apps/gvim.png
+    install -Dm644 ../gvim.desktop      $pkgdir/usr/share/applications/gvim.desktop
+    install -Dm644 $pv/runtime/vim48x48.png $pkgdir/usr/share/icons/hicolor/48x48/apps/gvim.png
 
     # remove ex/view and man pages (normally provided by package 'vi' on Arch Linux)
     cd $pkgdir/usr/bin ; rm ex view
