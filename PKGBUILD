@@ -78,6 +78,6 @@ package() {
       done
 
     # add license
-    install -D -m644 $SRC/runtime/doc/uganda.txt \
+    install -Dm644 $SRC/runtime/doc/uganda.txt \
       $pkgdir/usr/share/licenses/$pkgname/LICENSE
 }
