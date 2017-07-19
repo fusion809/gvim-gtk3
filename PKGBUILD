@@ -1,4 +1,4 @@
-# Maintainer: Peter Mattern <brentonhorne77 at gmail dot com>
+# Maintainer: Brenton Horne <fuse809 at gmail dot com>
 
 # Interpreters are handled by value "dynamic" of configure options
 # '--enable-<language>interp' and can thus be chosen at runtime by installing appropriate
