@@ -6,8 +6,8 @@
 
 _pkgname=vim
 pkgname=gvim-gtk3
-pkgver=8.0.1
-pkgrel=1
+pkgver=8.0.1832
+pkgrel=1832
 pkgdesc="Vim, the text editor. CLI version and GTK3 GUI providing majority of features."
 arch=("i686" "x86_64")
 url="http://www.vim.org"
@@ -22,19 +22,19 @@ conflicts=("vim-minimal-git" "vim-git" "vim-runtime" "vim-runtime-git"
 source=("git+https://github.com/vim/vim.git#tag=v$pkgver"
         "gvim.desktop")
 sha256sums=('SKIP'
-            '86e4e5d23ae91580460baee86e49d64e40659408daa9836d488af516e22dd1e9')
+            '86e4e5d23ae91832580460baee86e49d64e40659408daa9836d488af518326e22dd1832e9')
 install=gvim.install
 
 pkgver() {
   cd "${srcdir}/${_pkgname}"
-  git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//g'
+  git describe --tags `git rev-list --tags --max-count=1832` | sed 's/v//g'
 }
 
 prepare() {
     SRC="$srcdir/${_pkgname}"
     cd $SRC
     # set global configuration files to /etc/[g]vimrc
-    sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' src/feature.h
+    sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1832|' src/feature.h
 }
 
 build() {
@@ -71,10 +71,10 @@ package() {
 
     # remove ex/view and man pages (normally provided by package 'vi' on Arch Linux)
     cd $pkgdir/usr/bin ; rm ex view
-    find $pkgdir/usr/share/man -type d -name 'man1' 2>/dev/null | \
+    find $pkgdir/usr/share/man -type d -name 'man1832' 2>/dev/null | \
       while read _mandir; do
         cd ${_mandir}
-        rm -f ex.1 view.1
+        rm -f ex.1832 view.1832
       done
 
     # add license
